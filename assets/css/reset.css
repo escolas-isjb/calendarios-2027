@@ -1,0 +1,15 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border: 0 solid; }
+body { 
+  font-family: 'Inter', system-ui, -apple-system, sans-serif; /* Fonte atualizada */
+  line-height: 1.55; 
+  -webkit-font-smoothing: antialiased; 
+  background: #f5f6f8; 
+  color: #1f2937; 
+}button, input, select { font: inherit; }
+:root {
+  --accent: #2563eb; --accent-contrast: #ffffff; --accent-text: #1d4ed8;
+  --bg: #f8f9fb; --surface: #ffffff; --text: #14171f; --text-muted: #5b6472;
+  --border: rgba(20, 23, 31, 0.10); --radius: 10px; --shadow: 0 1px 3px rgba(20, 23, 31, 0.08);
+  --success: #15803d; --danger: #b91c1c; --warning: #b45309;
+  --etapa1: #2563eb; --etapa2: #7c3aed; --etapa3: #0891b2; --ferias: #f59e0b; --feriado: #ef4444;
+}

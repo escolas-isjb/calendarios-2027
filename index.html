@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Calendários Escolares ISJB</title>
+  
+  <!-- Fonte Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+<div class="page-wrap">
+ 
+  <!-- CABEÇALHO -->
+  <header class="app-header">
+    <div class="header-left">
+      <!-- Logo -->
+      <img src="assets/img/logo.png" alt="Logo ISJB" class="brand-logo">
+      
+      <!-- Títulos -->
+      <div class="header-titles">
+        <h1 class="app-title">Painel de Calendários Escolares</h1>
+        <p class="app-sub">Inspetoria São João Bosco · 11 unidades · Calendários 2027</p>
+      </div>
+    </div>
+    
+    <!-- Área de Filtros e Botão -->
+    <div class="header-actions no-print" style="display: flex; gap: 12px; align-items: center;">
+      
+      <input type="text" id="inputBusca" class="input-busca" placeholder="🔍 Buscar unidade...">
+      
+      <select id="filtroStatus" class="select-status">
+        <option value="todos">Todos os status</option>
+        <option value="validada">Apenas Validadas</option>
+        <option value="incompleta">Apenas Incompletas</option>
+        <option value="erro">Apenas Erros</option>
+      </select>
+
+      <button type="button" class="btn" id="btnExport">🖨 Exportar</button>
+    </div>
+  </header>
+
+  <!-- KPIs -->
+  <section aria-label="Indicadores gerais">
+    <div class="kpi-grid" id="kpiGrid"></div>
+  </section>
+
+  <!-- LINHA DO TEMPO -->
+  <section class="card-box" id="secaoTimeline">
+    <h2 class="section-title">🗓 Linha do tempo anual</h2>
+    <p class="section-sub">Clique no nome da unidade para ver detalhes</p>
+    <div class="legend">
+      <span class="legend-item"><span class="swatch" style="background:var(--etapa1)"></span>1ª Etapa</span>
+      <span class="legend-item"><span class="swatch" style="background:var(--etapa2)"></span>2ª Etapa</span>
+      <span class="legend-item"><span class="swatch" style="background:var(--etapa3)"></span>3ª Etapa</span>
+      <span class="legend-item"><span class="swatch" style="background:var(--ferias)"></span>Férias</span>
+      <span class="legend-item"><span class="swatch" style="background:var(--feriado);border-radius:50%"></span>Feriado</span>
+    </div>
+    <div class="timeline-scroll">
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- MATRIZ -->
+  <section class="card-box" id="secaoMatriz">
+    <h2 class="section-title"> Matriz das Unidades × Campo</h2>
+    <p class="section-sub">Cada célula indica o status do campo. Clique em uma linha para abrir o detalhe.</p>
+    <div class="matrix-wrap" id="matrixWrap">
+      <table class="matrix" id="matrix"></table>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="card-box">
+    <h2 class="section-title"> Unidades - status geral</h2>
+    <p class="section-sub">Clique em um card para abrir o detalhe lateral da unidade</p>
+    <div class="unit-grid" id="unitGrid"></div>
+  </section>
+
+  <footer class="app-footer" id="footer"></footer>
+</div>
+
+<!-- DRAWER (Painel Lateral) -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" tabindex="-1">
+  <div class="drawer-head">
+    <div>
+      <h2 class="drawer-title" id="drawerTitle"></h2>
+      <div id="drawerSub" style="display:flex; align-items: center; gap:8px; margin-top:4px;"></div>
+    </div>
+    <button type="button" class="close-btn" id="closeDrawer">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+<div class="tooltip" id="tooltip"></div>
+
+<!-- JAVASCRIPT -->
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/render.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

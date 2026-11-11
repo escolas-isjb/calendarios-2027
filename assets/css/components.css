@@ -1,0 +1,212 @@
+/* =========================================
+   KPIs
+   ========================================= */
+.kpi-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin-bottom: 20px; }
+@media (max-width: 960px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .kpi-grid { grid-template-columns: 1fr; } }
+.kpi-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 1px 3px rgba(15,23,42,0.08); border-top: 4px solid #2563eb; }
+.kpi-card.ok { border-top-color: var(--success); } .kpi-card.warn { border-top-color: var(--warning); } .kpi-card.crit { border-top-color: var(--danger); }
+.kpi-label { font-size: 12px; color: #374151; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
+.kpi-value { font-size: 28px; font-weight: 700; color: #111827; margin: 6px 0 2px; }
+.kpi-caption { font-size: 12px; color: #4b5563; }
+
+/* =========================================
+   LEGENDA E ESTRUTURA
+   ========================================= */
+.legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; font-size: 13px; color: #1f2937; }
+.legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.swatch { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+.timeline-scroll { overflow-x: auto; }
+
+/* =========================================
+   O CARTÃO DO GRÁFICO (BLOCO ÚNICO)
+   ========================================= */
+.timeline { 
+  min-width: 900px; 
+  background: #ffffff; 
+  border: 1px solid #e2e8f0; 
+  border-radius: 12px; 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+  overflow: hidden; 
+  padding-bottom: 10px; 
+}
+
+/* =========================================
+   CABEÇALHO E LINHAS DA TIMELINE
+   ========================================= */
+.tl-axis { 
+  display: grid; 
+  grid-template-columns: 200px 1fr; 
+  align-items: center; 
+  height: 30px; 
+  border-bottom: 1px solid #d1d5db; 
+  margin-bottom: 4px; 
+}
+.tl-axis-label-spacer {
+  padding-left: 30px; 
+  font-weight: 700;
+  font-size: 14px;
+  color: #171a1d;
+}
+.tl-axis-track { position: relative; height: 30px; }
+.tl-month { 
+  position: absolute; 
+  top: 0; 
+  height: 30px; 
+  border-left: 1px solid #9ca3af; 
+  font-size: 11px; 
+  font-weight: 700; 
+  color: #374151; 
+  line-height: 30px; 
+  width: 8.3333%; /* Largura exata de 1 mês */
+  text-align: center; /* Centraliza o texto (JAN, FEV...) */
+  padding: 0; /* Remove o espaço da esquerda */
+  box-sizing: border-box;
+}
+
+/* =========================================
+   LINHA DO TEMPO - REALCE E EFEITO ZEBRADO
+   ========================================= */
+.tl-row { 
+  display: grid; 
+  grid-template-columns: 200px 1fr; 
+  align-items: center; 
+  height: 46px; 
+  border-bottom: 1px solid #e2e8f0; 
+  background-color: transparent; 
+  transition: background-color 0.2s ease;
+}
+
+.tl-row:hover { 
+  background-color: #eff6ff; 
+}
+.tl-row:hover .tl-track-wrap {
+  background-color: #eff6ff;
+}
+
+.tl-name { 
+  font-size: 13px; 
+  font-weight: 600; 
+  color: #111827; 
+  background: none; 
+  border: none; 
+  text-align: left; 
+  cursor: pointer; 
+  padding: 4px 12px 4px 20px; 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  height: 100%; 
+  width: 100%; 
+}
+.tl-name:hover .tl-name-city { color: #1d4ed8; text-decoration: underline; }
+.sigla-badge { display: inline-block; font-size: 10px; font-weight: 700; background: #e5e7eb; color: #1f2937; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+
+.tl-track-wrap {
+  height: 100%;
+  border-left: 1px solid #e2e8f0; 
+}
+
+.tl-track { 
+  position: relative; 
+  height: 100%; 
+  background: repeating-linear-gradient(to right, transparent 0, transparent calc(100%/12 - 1px), #f1f5f9 calc(100%/12 - 1px), #f1f5f9 calc(100%/12)); 
+}
+
+.tl-bar { position: absolute; top: 14px; height: 18px; border-radius: 4px; cursor: pointer; transition: filter .15s, transform .15s; }
+.tl-bar:hover { filter: brightness(0.9); transform: scaleY(1.15); }
+
+/* =========================================
+   BOLINHAS DE FERIADO E ANIVERSÁRIO
+   ========================================= */
+.tl-dot { 
+  position: absolute; 
+  top: 18px; 
+  width: 8px; 
+  height: 8px; 
+  border-radius: 50%; 
+  background: var(--feriado); 
+  margin-left: -4px; 
+  cursor: help; 
+  border: 1px solid #fff; 
+}
+
+/* A bolinha do aniversário é um pouco maior e tem um anel em volta */
+.dot-aniversario {
+  width: 10px !important;
+  height: 10px !important;
+  top: 18px !important; 
+  margin-left: -5px !important;
+  border: 2px solid #fff !important; 
+  box-shadow: 0 0 0 1.5px var(--feriado) !important; 
+}
+
+/* =========================================
+   MATRIZ
+   ========================================= */
+.matrix-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid #e5e7eb; }
+.matrix { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 1100px; font-size: 12px; }
+.matrix th, .matrix td { padding: 9px 8px; text-align: center; border-bottom: 1px solid #eef0f3; white-space: nowrap; }
+.matrix th { position: sticky; top: 0; background: #f9fafb; color: #111827; font-weight: 700; z-index: 2; border-bottom: 1px solid #d1d5db; }
+.matrix th:first-child, .matrix td:first-child { text-align: left; position: sticky; left: 0; background: #fff; z-index: 1; font-weight: 600; color: #111827; }
+.matrix th:first-child { background: #f9fafb; z-index: 3; }
+.matrix tr.row-btn { cursor: pointer; transition: background 0.1s; }
+.matrix tr.row-btn:hover td { background: #eff6ff; }
+.cell-ok { background: #dcfce7; color: #14532d; font-weight: 600; } .cell-warn { background: #fef3c7; color: #78350f; font-weight: 600; } .cell-crit { background: #fee2e2; color: #7f1d1d; font-weight: 600; }
+
+/* =========================================
+   CARDS DE UNIDADES E DRAWER
+   ========================================= */
+.unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+.unit-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 1px 3px rgba(15,23,42,0.08); cursor: pointer; border: 1px solid #e5e7eb; transition: transform .15s, box-shadow .15s; text-align: left; display: flex; flex-direction: column; gap: 8px; }
+.unit-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(15,23,42,0.12); }
+.unit-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.unit-card-name { font-weight: 700; font-size: 15px; color: #111827; }
+.badge-status { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+.badge-validada { background: #dcfce7; color: #14532d; } .badge-incompleta { background: #fef3c7; color: #78350f; } .badge-erro { background: #fee2e2; color: #7f1d1d; }
+.progress { height: 8px; background: #e5e7eb; border-radius: 999px; overflow: hidden; margin-top: 4px; }
+.progress-fill { height: 100%; border-radius: 999px; }
+
+.overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.45); opacity: 0; pointer-events: none; transition: opacity .25s ease; z-index: 100; }
+.overlay.open { opacity: 1; pointer-events: auto; }
+.drawer { position: fixed; top: 0; right: 0; height: 100%; width: 480px; max-width: 100%; background: #fff; box-shadow: -12px 0 32px rgba(15,23,42,0.25); transform: translateX(100%); transition: transform .3s ease; z-index: 101; display: flex; flex-direction: column; }
+.drawer.open { transform: translateX(0); }
+.drawer-head { padding: 20px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: flex-start; }
+.drawer-title { font-size: 18px; font-weight: 700; margin: 0 0 4px; color: #111827; }
+.drawer-body { padding: 20px; overflow-y: auto; flex: 1; }
+.close-btn { background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; width: 36px; height: 36px; cursor: pointer; font-size: 16px; color: #111827; }
+.field-list { list-style: none; margin: 0; padding: 0; }
+.field-list li { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f1f2f4; font-size: 14px; }
+.field-list .f-label { color: #374151; }
+.field-list .f-value { font-weight: 600; color: #111827; text-align: right; }
+.ind { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+.ind-ok { background: #15803d; } .ind-warn { background: #d97706; } .ind-crit { background: #dc2626; }
+.tooltip { position: fixed; z-index: 200; background: #111827; color: #fff; font-size: 12px; padding: 6px 10px; border-radius: 8px; pointer-events: none; opacity: 0; transition: opacity .12s; max-width: 240px; }
+.tooltip.show { opacity: 1; }
+/* =========================================
+   CORREÇÃO FINAL DAS BOLINHAS (FERIADOS)
+   ========================================= */
+
+/* Bolinha normal: centralizada verticalmente na linha */
+.tl-track .tl-dot { 
+  position: absolute; 
+  top: 18px !important; /* Centraliza no meio da barra */
+  width: 6px !important; 
+  height: 6px !important; 
+  border-radius: 50% !important; 
+  background: var(--feriado) !important; /* Vermelho */
+  margin-left: -4px !important; /* Centraliza no eixo X */
+  cursor: help; 
+  border: 1px solid #fff !important; /* Borda branca para destacar */
+  box-sizing: content-box !important;
+}
+
+/* Bolinha de Aniversário: um pouco maior e com anel */
+.tl-track .dot-aniversario {
+  width: 10px !important; 
+  height: 10px !important; 
+  top: 17px !important; /* Ajuste fino para não desalinhar */
+  margin-left: -5px !important;
+  box-shadow: 0 0 0 2px var(--feriado) !important; /* Cria o anel vermelho em volta */
+  border: 5px solid #d0d0cf !important; 
+}

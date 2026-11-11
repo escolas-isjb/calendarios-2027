@@ -1,0 +1,204 @@
+/* =========================================
+   ESTILOS GERAIS
+   ========================================= */
+.page-wrap { 
+  max-width: 1280px; 
+  margin: 0 auto; 
+  padding: 24px 16px 40px; 
+}
+
+body::before {
+  content: "";
+  display: block;
+  height: 6px;
+  background: linear-gradient(to right, #c8102e 0%, #c8102e 10%, #002b5c 33%, #002b5c 66%);
+  width: 100%;
+}
+
+/* =========================================
+   CABEÇALHO
+   ========================================= */
+.app-header { 
+  display: flex; 
+  flex-wrap: wrap; 
+  align-items: center; 
+  justify-content: space-between; 
+  gap: 16px; 
+  margin-bottom: 24px; 
+  padding: 16px 24px; 
+  
+  /* NOVAS REGRAS PARA O EFEITO VIDRO */
+  position: sticky;
+  top: 10px;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.85); /* Fundo branco quase transparente */
+  backdrop-filter: blur(12px); /* Desfoca o que passa por trás */
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+  border-radius: 14px;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.brand-logo {
+  height: 60px; 
+  width: auto;
+  object-fit: contain;
+}
+.header-titles {
+  display: flex;
+  flex-direction: column;
+}
+.app-title { 
+  font-size: 24px; 
+  font-weight: 700; 
+  margin: 0; 
+  color: #002b5c; 
+  line-height: 1.2;
+}
+.app-sub { 
+  color: #4b5563; 
+  font-size: 14px; 
+  margin: 4px 0 0; 
+}
+.app-footer { 
+  text-align: center; 
+  font-size: 12px; 
+  color: #4b5563; 
+  margin-top: 28px; 
+}
+
+/* =========================================
+   BOTÃO EXPORTAR
+   ========================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  background-color: #002b5c; 
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn:hover {
+  background-color: #001a3a; 
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   CONFIGURAÇÃO DE IMPRESSÃO (A4 LANDSCAPE)
+   ========================================= */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm; 
+  }
+
+  /* Esconde TUDO que não é essencial */
+  .no-print, .btn, .app-footer, .kpi-grid, .unit-grid, #unitGrid,
+  .overlay, .drawer, .tooltip, 
+  section[aria-labelledby="unitsTitle"] { 
+    display: none !important; 
+  }
+
+  body { 
+    background: #fff !important; 
+    -webkit-print-color-adjust: exact !important; 
+    print-color-adjust: exact !important;
+  }
+  
+  .page-wrap { 
+    padding: 0 !important; 
+    margin: 0 !important; 
+    max-width: 100% !important; 
+  }
+
+  /* Página 1: Só a Linha do Tempo */
+  #secaoTimeline {
+    page-break-after: always !important; 
+    break-after: page !important;
+  }
+
+  /* Página 2: Só a Matriz */
+  #secaoMatriz {
+    page-break-before: always !important; 
+    break-before: page !important;
+    display: block !important; 
+    margin-top: 20px !important;
+  }
+
+  /* --- AJUSTES DA LINHA DO TEMPO --- */
+  .timeline { min-width: 0 !important; width: 100% !important; }
+  .timeline-scroll, .matrix-wrap { overflow: visible !important; }
+  .tl-row { height: 32px !important; }
+  .tl-bar { top: 7px !important; height: 14px !important; }
+  .tl-dot { top: 10px !important; }
+  
+  /* --- AJUSTES DA MATRIZ --- */
+  .matrix { 
+    font-size: 8px !important; 
+    width: 100% !important;
+    min-width: 0 !important; 
+    table-layout: fixed !important; 
+  }
+  .matrix th, .matrix td { 
+    padding: 4px 2px !important; 
+    white-space: normal !important; 
+  }
+
+  /* Cabeçalho no papel */
+  .app-header {
+    position: static !important; /* Remove o cabeçalho fixo */
+    background: transparent !important; /* Tira o fundo de vidro */
+    backdrop-filter: none !important; /* Tira o desfoque */
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important; /* Tira a sombra */
+    border: none !important; /* Tira a borda */
+    margin-bottom: 10px !important;
+    padding: 0 !important;
+  }
+   /* Esconde os textos de ajuda e legendas para limpar o PDF */
+  .section-sub, .legend, .header-actions {
+    display: none !important;
+  }
+  }
+  /* =========================================
+   ESTILOS DOS FILTROS DE BUSCA
+   ========================================= */
+.input-busca, .select-status {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #1f2937;
+  font-size: 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.input-busca:focus, .select-status:focus {
+  border-color: #002b5c;
+  box-shadow: 0 0 0 3px rgba(0, 43, 92, 0.1);
+}
+
+.input-busca {
+  width: 220px;
+}
+
+.select-status {
+  cursor: pointer;
+  font-weight: 500;
+  width: 180px;
+}
